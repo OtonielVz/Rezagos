@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!--BY Otoniel PalaciosVz-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.ibb.co/G9T33Zy/favicon.png"
+      type="image/x-icon"
+    />
+    <title>Rezagos</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      label {
+        margin-top: 10px;
+      }
+      input,
+      button {
+        padding: 10px;
+        width: 90%;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border 0.2s;
+      }
+      input:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .output-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 20px;
+      }
+      h2 {
+        margin-top: 20px;
+        text-align: center;
+      }
+      p {
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        word-wrap: break-word;
+        width: 300px;
+      }
+      .mensaje {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        transition: opacity 0.5s;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 60%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <h1>Rezagos</h1>
+
+        <label for="folioRZ">Folio RZ:</label>
+        <input type="text" id="folioRZ" />
+
+        <button id="generarTexto">Generar Texto</button>
+      </div>
+
+      <div class="output-container">
+        <h2>Texto Generado:</h2>
+        <p id="textoGenerado"></p>
+        <button id="copiarTexto" style="display: none">Copiar Texto</button>
+      </div>
+    </div>
+
+    <div class="mensaje" id="mensajeCopiado">
+      Texto copiado al portapapeles!
+    </div>
+
+    <script>
+      document.getElementById("generarTexto").onclick = function () {
+        const folioRZ = document.getElementById("folioRZ").value;
+
+        const texto = `Hola Team,
+
+Les informo que se ha completado la auditoría del RZ-${folioRZ}, y no se han detectado incidencias. Adjunto las evidencias correspondientes para su revisión.
+
+Saludos cordiales.`;
+
+        document.getElementById("textoGenerado").innerText = texto;
+        document.getElementById("copiarTexto").style.display = "block";
+      };
+
+      document.getElementById("copiarTexto").onclick = function () {
+        const texto = document.getElementById("textoGenerado").innerText;
+        navigator.clipboard.writeText(texto).then(() => {
+          const mensaje = document.getElementById("mensajeCopiado");
+          mensaje.style.display = "block";
+          setTimeout(() => {
+            mensaje.style.opacity = "0";
+            setTimeout(() => {
+              mensaje.style.display = "none";
+              mensaje.style.opacity = "1";
+            }, 500);
+          }, 1500);
+        });
+      };
+    </script>
+  </body>
+</html>
